@@ -1,6 +1,6 @@
 {
-  "name": "your plugin name",
-  "id": "your plugin id",
+  "name": "Rename Helper",
+  "id": "1371033476811841547",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "dist/index.html",
