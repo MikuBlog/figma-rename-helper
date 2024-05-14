@@ -5,11 +5,8 @@
   "main": "dist/code.js",
   "ui": "dist/index.html",
   "editorType": [
-    "figma",
-    "figjam",
-    "dev"
+    "figma"
   ],
-  "capabilities": ["inspect", "vscode"],
   "documentAccess": "dynamic-page",
   "networkAccess": {
     "allowedDomains": ["none"]

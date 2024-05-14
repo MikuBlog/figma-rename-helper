@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-13 14:59:15
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-14 14:40:18
+ * @LastEditTime: 2024-05-14 14:54:16
  * @FilePath: /figma-rename-helper/src/components/Selector/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -36,7 +36,7 @@
     </div>
     <div
       v-show="onShowList"
-      class="list b-1px b-#000 b-solid b-t-0 absolute z-999 w-[calc(100%-2px)] bg-#fff h-200px overflow-auto"
+      class="list b-1px b-#000 b-solid b-t-0 absolute z-999 w-[calc(100%-2px)] bg-#fff h-220px overflow-auto"
     >
       <div
         v-for="(item, ind) in options"
