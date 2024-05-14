@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-11 18:08:49
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-13 19:21:54
+ * @LastEditTime: 2024-05-14 14:42:26
  * @FilePath: /figma-plugin-vue3-template/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -21,6 +21,7 @@
           <Title title="i18N Rules" />
           <Selector
             v-model:value="i18nValue"
+            class="mb-30px"
             :options="i18nOptions"
           />
         </div>
@@ -62,6 +63,24 @@ export default defineComponent({
       i18nValue: i18nOptions[0].value,
       i18nRegexp: new RegExp(`^${i18nOptions.map((item) => `${item.value}_`).join('|')}`),
       regexp: /_\d+x\d+@\d+x$/,
+    })
+
+    // 渲染列表项高度
+    const renderHeight = () => {
+      const leftListItem = leftList.value?.querySelectorAll('.list-name-item')
+      const rightListItem = rightList.value?.querySelectorAll('.list-name-item')
+      leftListItem?.forEach((item: any, index: number) => {
+        const rightItem = rightListItem?.[index]
+        item.style.height = window.getComputedStyle(rightItem!).height
+      })
+    }
+
+    watch(() => data.listData, (listData) => {
+      if (listData?.length) {
+        nextTick(renderHeight)
+      }
+    }, {
+      immediate: true,
     })
 
     const rightListData = computed(() => {
