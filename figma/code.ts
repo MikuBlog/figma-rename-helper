@@ -2,10 +2,12 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-04-30 10:51:17
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-13 14:48:47
+ * @LastEditTime: 2024-05-14 16:01:28
  * @FilePath: /cider-figma-plugin/code.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+
+import { NodeType } from './typing'
 
 let selectionNode = figma.currentPage.selection
 
@@ -25,12 +27,11 @@ const getNodeAllProperties = (node: any) => {
 
 // 监听图层选中
 const handleSelectionChange = () => {
-  // console.log('event', figma.currentPage.selection);
   formatSelectionNode = []
   figma.currentPage.selection.forEach((node) => {
+    if ([NodeType.COMPONENT, NodeType.INSTANCE].includes(node.type as NodeType)) return
     formatSelectionNode.push(getNodeAllProperties(node))
   })
-  // console.log('formatSelectionNode', formatSelectionNode);
   selectionNode = figma.currentPage.selection
   figma.ui.postMessage({ type: 'selectionNodes', value: formatSelectionNode })
 }
