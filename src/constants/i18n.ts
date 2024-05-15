@@ -2,22 +2,12 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-13 15:27:55
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-14 13:59:28
+ * @LastEditTime: 2024-05-15 10:39:15
  * @FilePath: /figma-rename-helper/src/constants/i18n.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
 export const i18nOptions = [
-  {
-    value: '',
-    label: 'Select your language',
-    imgPrefix: new URL('@/assets/Country-Flag/None.png', import.meta.url).href,
-  },
-  {
-    value: 'EN/EN',
-    label: 'EN',
-    imgPrefix: new URL('@/assets/Country-Flag/US.png', import.meta.url).href,
-  },
   {
     value: 'FR/FR',
     label: 'FR',
@@ -39,9 +29,9 @@ export const i18nOptions = [
     imgPrefix: new URL('@/assets/Country-Flag/BR.png', import.meta.url).href,
   },
   {
-    value: 'SA/SA',
-    label: 'SA',
-    imgPrefix: new URL('@/assets/Country-Flag/SA.png', import.meta.url).href,
+    value: 'AR/AR',
+    label: 'AR',
+    imgPrefix: new URL('@/assets/Country-Flag/AR.png', import.meta.url).href,
   },
   {
     value: 'AU/AU',
@@ -91,6 +81,16 @@ export const i18nOptions = [
   {
     value: 'LATAM/LATAM',
     label: 'LATAM',
-    imgPrefix: new URL('@/assets/Country-Flag/AR.png', import.meta.url).href,
+    imgPrefix: new URL('@/assets/Country-Flag/LATAM.png', import.meta.url).href,
   },
-]
+].sort((a: any, b: any) => a.label.localeCompare(b.label))
+
+i18nOptions.unshift({
+  value: '',
+  label: 'Select your language',
+  imgPrefix: new URL('@/assets/Country-Flag/None.png', import.meta.url).href,
+}, {
+  value: 'EN/EN',
+  label: 'EN',
+  imgPrefix: new URL('@/assets/Country-Flag/US.png', import.meta.url).href,
+})
