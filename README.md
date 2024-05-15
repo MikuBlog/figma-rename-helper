@@ -8,8 +8,6 @@
 -->
 # Figma-Plugin-Template
 
-## Introduction
-
 ![introduction](https://s3.bmp.ovh/imgs/2024/05/15/d8f688fb10059a2a.png)
 
 ## Technology-Stack
