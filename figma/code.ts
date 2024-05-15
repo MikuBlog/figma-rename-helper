@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-04-30 10:51:17
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-15 11:11:16
+ * @LastEditTime: 2024-05-15 13:41:45
  * @FilePath: /cider-figma-plugin/code.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -19,6 +19,7 @@ figma.showUI(__html__, { visible: true, width: 720, height: 500 })
 const getNodeAllProperties = (node: any) => {
   const properties: any = {}
   for (const key in node) {
+    if (key === 'parent') continue
     properties[key] = node[key]
   }
   console.log('properties', properties)
@@ -33,7 +34,7 @@ const handleSelectionChange = () => {
     formatSelectionNode.push(getNodeAllProperties(node))
   })
   selectionNode = figma.currentPage.selection
-  figma.ui.postMessage({ type: 'selectionNodes', value: formatSelectionNode })
+  figma.ui.postMessage({ type: 'selectionNodes', value: JSON.stringify(formatSelectionNode) })
 }
 
 // 确认重命名

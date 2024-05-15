@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-11 18:08:49
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-15 11:38:14
+ * @LastEditTime: 2024-05-15 13:51:17
  * @FilePath: /figma-plugin-vue3-template/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -63,7 +63,7 @@
 
 <script lang="ts">
 import { i18nOptions } from './constants/i18n'
-import { isFractionalPart } from './utils'
+import { reservedDecimal } from './utils'
 
 export default defineComponent({
   setup (props, context) {
@@ -83,8 +83,8 @@ export default defineComponent({
     const formatListData = computed<Array<NewNodeType>>(() => {
       return data.listData.map((val: any) => ({
         ...val,
-        width: isFractionalPart(val.width) ? val.width.toFixed(2) : val.width,
-        height: isFractionalPart(val.height) ? val.height.toFixed(2) : val.height,
+        width: reservedDecimal(val.width, 2),
+        height: reservedDecimal(val.height, 2),
       }))
     })
 
@@ -138,7 +138,7 @@ export default defineComponent({
     // 处理事件监听
     const handleOnMessage = (event: MessageEvent) => {
       if (event.data.pluginMessage.type === 'selectionNodes') {
-        data.listData = event?.data?.pluginMessage?.value
+        data.listData = JSON.parse(event?.data?.pluginMessage?.value)
       }
     }
 
