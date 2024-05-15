@@ -22,13 +22,13 @@
 - [x] unplugin-auto-import
 - [x] unplugin-vue-components
 
-## Dev (watch)
+# Dev (watch)
 
 ```bash
 npm run start:dev
 ```
 
-## About-Figma-Plugin 
+# About-Figma-Plugin 
 
 All it Need (main + ui):
 
