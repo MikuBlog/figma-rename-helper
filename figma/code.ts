@@ -2,18 +2,21 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-04-30 10:51:17
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-15 13:41:45
+ * @LastEditTime: 2024-05-17 15:18:14
  * @FilePath: /cider-figma-plugin/code.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
-import { NodeType } from './typing'
+import { NodeType, MessageType } from './typing'
 
 let selectionNode = figma.currentPage.selection
 
 let formatSelectionNode: any[] = []
 
 figma.showUI(__html__, { visible: true, width: 720, height: 500 })
+figma.clientStorage.getAsync(MessageType.storage).then((value) => {
+  figma.ui.postMessage({ type: MessageType.resetStorage, value })
+})
 
 // 取出节点所有属性
 const getNodeAllProperties = (node: any) => {
@@ -22,7 +25,7 @@ const getNodeAllProperties = (node: any) => {
     if (key === 'parent') continue
     properties[key] = node[key]
   }
-  console.log('properties', properties)
+  // console.log('properties', properties)
   return properties
 }
 
@@ -34,7 +37,7 @@ const handleSelectionChange = () => {
     formatSelectionNode.push(getNodeAllProperties(node))
   })
   selectionNode = figma.currentPage.selection
-  figma.ui.postMessage({ type: 'selectionNodes', value: JSON.stringify(formatSelectionNode) })
+  figma.ui.postMessage({ type: MessageType.selectionNodes, value: JSON.stringify(formatSelectionNode) })
 }
 
 // 确认重命名
@@ -51,9 +54,12 @@ const handleConfirmRename = (newList: Array<NewNodeType>) => {
 }
 
 figma.ui.onmessage = async (msg) => {
-  if (msg.type === 'confirm') {
+  if (msg.type === MessageType.confirm) {
     handleConfirmRename(msg.value)
     figma.closePlugin()
+  }
+  if (msg.type === MessageType.storage) {
+    figma.clientStorage.setAsync(MessageType.storage, msg.value)
   }
 }
 

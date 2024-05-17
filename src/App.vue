@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-11 18:08:49
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-17 12:22:21
+ * @LastEditTime: 2024-05-17 15:42:29
  * @FilePath: /figma-plugin-vue3-template/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,7 +12,7 @@
       <div class="flex justify-between">
         <div class="left flex-1">
           <Title title="Original Layer Name" />
-          <List-Container ref="leftList">
+          <List-Container class="left-list">
             <ListItem :list-data="formatListData" />
           </List-Container>
         </div>
@@ -24,7 +24,7 @@
         </div>
         <div class="right flex-1">
           <Title title="Modified Layer Name" />
-          <List-Container ref="rightList">
+          <List-Container class="right-list">
             <ListItem
               name-key="newName"
               :list-data="rightListData"
@@ -40,21 +40,21 @@
           <div class="rule-box flex justify-between">
             <div class="left flex-1 relative top-8px">
               <ElCheckbox
-                v-model="onI18n"
+                v-model="configure.onI18n"
                 label="Show i18n Rule（Prefix）"
                 size="large"
                 text-color="#333"
               />
               <br>
               <ElCheckbox
-                v-model="onLayerSize"
+                v-model="configure.onLayerSize"
                 label="Show Layer Size（Suffix）"
                 size="large"
                 text-color="#333"
               />
               <br>
               <ElCheckbox
-                v-model="onLayerResolution"
+                v-model="configure.onLayerResolution"
                 label="Show Layer Resolution（Suffix）"
                 size="large"
                 text-color="#333"
@@ -63,27 +63,27 @@
             <div class="center w-50px" />
             <div class="right flex-1">
               <div
-                v-show="onI18n"
+                v-show="configure.onI18n"
                 class="i18n-selector-box"
               >
                 <div class="flex justify-between">
                   <Title title="i18N Rules" />
                   <ElSwitch
-                    v-model="onUseI18n"
+                    v-model="configure.onUseI18n"
                     size="small"
                     active-text="Apply new"
                     inactive-text="Stay old"
                   />
                 </div>
                 <Selector
-                  v-model:value="i18nValue"
+                  v-model:value="configure.i18nValue"
                   :options="i18nOptions"
                 />
               </div>
             </div>
           </div>
           <Button
-            label="RENAME LAYER"
+            label="RENAME"
             class="mt-20px"
             @click="handleClickButton"
           />
@@ -104,27 +104,34 @@
 <script lang="ts">
 import { ElCheckbox, ElSwitch } from 'element-plus'
 import { i18nOptions } from './constants/i18n'
-import { reservedDecimal } from './utils'
+import { postMessageToUI, reservedDecimal } from './utils'
+import { MessageType } from './types'
 
 export default defineComponent({
   components: { ElCheckbox, ElSwitch },
   setup (props, context) {
-    const leftList = ref<HTMLDivElement>()
-    const rightList = ref<HTMLDivElement>()
-
     const data = reactive({
       listData: [] as Array<NewNodeType>,
       emptyListData: [{
         name: '⚠️ Please select a layer at first',
       }] as Array<NewNodeType>,
-      i18nValue: i18nOptions[0].value,
       i18nRegexp: new RegExp(`^${i18nOptions.map((item) => `${item.value}_`).join('|')}`),
       sizeRegexp: /_?\d+(\.\d+)?x\d+(\.\d+)?/,
       resolutionRegexp: /@\d+(\.\d+)?x$/,
-      onI18n: true,
-      onUseI18n: true,
-      onLayerSize: true,
-      onLayerResolution: true,
+      configure: {
+        onI18n: true,
+        onUseI18n: true,
+        onLayerSize: true,
+        onLayerResolution: true,
+        i18nValue: i18nOptions[0].value,
+      },
+    })
+
+    watch(() => data.configure, (val) => {
+      postMessageToUI(MessageType.storage, toRaw(data.configure))
+    }, {
+      immediate: true,
+      deep: true,
     })
 
     const formatListData = computed<Array<NewNodeType>>(() => {
@@ -137,17 +144,17 @@ export default defineComponent({
 
     // 渲染列表项高度
     const renderHeight = () => {
-      const leftListItem = leftList.value?.querySelectorAll?.('.list-name-item')
-      const rightListItem = rightList.value?.querySelectorAll?.('.list-name-item')
+      const leftListItem = document.querySelectorAll?.('.left-list .list-name-item')
+      const rightListItem = document.querySelectorAll?.('.right-list .list-name-item')
       leftListItem?.forEach((item: any, index: number) => {
-        const rightItem = rightListItem?.[index]
+        const rightItem = rightListItem?.[index] as HTMLDivElement
         item.style.height = window.getComputedStyle(rightItem!).height
       })
     }
 
     watch(() => data.listData, (listData: Array<NewNodeType>) => {
       if (listData?.length) {
-        nextTick(renderHeight)
+        setTimeout(renderHeight)
       }
     }, {
       immediate: true,
@@ -161,17 +168,17 @@ export default defineComponent({
         }
         let newName = item.name
         // 是否有i18n
-        if (data.i18nValue && data.onI18n) {
-          if (data.onUseI18n) {
+        if (data.configure.i18nValue && data.configure.onI18n) {
+          if (data.configure.onUseI18n) {
             if (data.i18nRegexp.test(newName)) {
-              newName = newName.replace(data.i18nRegexp, `${data.i18nValue}_`)
+              newName = newName.replace(data.i18nRegexp, `${data.configure.i18nValue}_`)
             } else {
-              newName = `${data.i18nValue}_${newName}`
+              newName = `${data.configure.i18nValue}_${newName}`
             }
           }
         }
         // 是否有尺寸
-        if (data.onLayerSize) {
+        if (data.configure.onLayerSize) {
           const replaceStr = `_${formatListData.value?.[ind].width}x${formatListData.value?.[ind].height}`
           if (data.sizeRegexp.test(newName)) {
             newName = newName.replace(data.sizeRegexp, replaceStr)
@@ -179,10 +186,8 @@ export default defineComponent({
             newName += replaceStr
           }
         }
-        // 中间值
-        // newName += `${item.name.replace(data.i18nRegexp, '').replace(data.regexp, '')}_${formatListData.value?.[ind].width}x${formatListData.value?.[ind].height}`
         // 是否有尺寸约束
-        if (data.onLayerResolution) {
+        if (data.configure.onLayerResolution) {
           let replaceStr = ''
           if (constraint) {
             replaceStr = `@${constraint.value}x`
@@ -202,13 +207,22 @@ export default defineComponent({
 
     // 处理按钮点击
     const handleClickButton = () => {
-      window.parent.postMessage({ pluginMessage: { type: 'confirm', value: toRaw(data.listData) } }, '*')
+      postMessageToUI(MessageType.confirm, toRaw(data.listData))
     }
+
+    // 恢复设置
 
     // 处理事件监听
     const handleOnMessage = (event: MessageEvent) => {
-      if (event.data.pluginMessage.type === 'selectionNodes') {
-        data.listData = JSON.parse(event?.data?.pluginMessage?.value)
+      const { type, value } = event.data.pluginMessage
+      if (type === MessageType.selectionNodes) {
+        data.listData = JSON.parse(value)
+      }
+      if (type === MessageType.resetStorage && value) {
+        data.configure = {
+          ...data.configure,
+          ...(value ?? {}),
+        }
       }
     }
 
@@ -223,8 +237,6 @@ export default defineComponent({
     return {
       handleClickButton,
       rightListData,
-      leftList,
-      rightList,
       i18nOptions,
       formatListData,
       ...toRefs(data),
