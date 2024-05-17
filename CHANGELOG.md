@@ -1,17 +1,22 @@
-## [0.0.4](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v0.0.3...v0.0.4) (2024-05-13)
+# 1.0.0 (2024-05-17)
+
+
+### Bug Fixes
+
+* 点击确认关闭插件 ([65ed8ed](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/65ed8ed0afa5ce722167ad3aeee934c84305722a))
+* 顺序问题 ([4bfa903](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/4bfa903e7b52f470704a57c77f830831d167f196))
+* 修复小数点与通信异常问题 ([caef2ee](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/caef2ee6b38d91c04cada2fae69c46fa4a55f0b2))
 
 
 ### Features
 
-* update dependencies ([0aca738](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/0aca7383c8dbf663a4fc61e22a62e9c35eb883ff))
-
-
-
-## [0.0.3](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v0.0.2...v0.0.3) (2024-05-11)
-
-
-
-## 0.0.2 (2024-05-11)
+* 完成基础功能 ([4d3cfb2](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/4d3cfb247fb6b5f549b715ccf668338b1d01cfc3))
+* 完成新版功能 ([6095fe2](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/6095fe277d89b60f27d16771ba832cb9f5308ed6))
+* 完善插件 ([7b9feea](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/7b9feea4ec01d89f44bbd6b40e8cf6336cbc24fd))
+* 完善插件 ([f644f1f](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/f644f1f60b45a87a31f85b49bb295603c5f45701))
+* 支持更多额外配置项，新增配置项缓存功能 ([ea904c4](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/ea904c42f3dcdbbb275c6969fa81ea7f6149518d))
+* 支持主题色 ([b739535](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/b739535f861c66d2f5faf33a0c50df0fb1ff9395))
+* 支持element-plus ([66a95dd](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/66a95dd2c1ccef360e949847ebd4255506251e45))
 
 
 
