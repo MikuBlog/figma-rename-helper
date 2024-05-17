@@ -2,14 +2,14 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-13 14:59:15
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-15 11:38:46
+ * @LastEditTime: 2024-05-17 11:25:26
  * @FilePath: /figma-rename-helper/src/components/Selector/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="figma-selector relative">
     <div
-      class="input-box relative flex justify-between items-center b-1px b-solid b-#000 line-height-40px h-40px pl-10px pr-10px cursor-pointer"
+      class="input-box relative flex justify-between items-center b-1px b-solid b-#E1E1E1 line-height-40px h-40px pl-10px pr-10px cursor-pointer rounded-4px"
       @click.stop="onShowList = !onShowList"
     >
       <div class="left flex items-center">
@@ -23,20 +23,14 @@
       </div>
       <div class="right">
         <img
-          v-if="onShowList"
-          class="w-12px h-12px"
-          src="@/assets/Selector/arrow2-U.png"
-        >
-        <img
-          v-else
-          class="w-12px h-12px"
+          :class="`w-12px h-12px ${onShowList ? 'rotate-180' : ''}`"
           src="@/assets/Selector/arrow2-D.png"
         >
       </div>
     </div>
     <div
       v-show="onShowList"
-      class="list b-1px b-#000 b-solid b-t-0 absolute z-999 w-[calc(100%-2px)] bg-#fff h-220px overflow-auto"
+      class="list b-1px b-#E1E1E1 b-solid b-t-0 absolute z-999 w-[calc(100%-2px)] bg-#fff h-220px overflow-auto"
     >
       <div
         v-for="(item, ind) in options"
@@ -122,9 +116,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="less" scoped>
-// .input-box {
-//   border: 1px solid #EEE;
-// }
-</style>
