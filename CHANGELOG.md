@@ -1,4 +1,8 @@
-# 1.0.0 (2024-05-17)
+# [2.0.0](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v1.0.0...v2.0.0) (2024-05-17)
+
+
+
+# [1.0.0](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/4d3cfb247fb6b5f549b715ccf668338b1d01cfc3...v1.0.0) (2024-05-17)
 
 
 ### Bug Fixes
