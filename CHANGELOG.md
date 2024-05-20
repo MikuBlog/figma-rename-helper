@@ -1,3 +1,13 @@
+## [2.0.3](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.0.2...v2.0.3) (2024-05-20)
+
+
+### Bug Fixes
+
+* 尝试解决滚动条占位问题 ([aa099ad](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/aa099ad1d578d81c8b300a89f2a89ec0dfb112fd))
+* 抖动问题 ([5a8de17](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/5a8de1783d7a84b05c7b4ea1983d2e0de95acf2d))
+
+
+
 ## [2.0.2](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.0.1...v2.0.2) (2024-05-20)
 
 
