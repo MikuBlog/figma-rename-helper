@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-11 18:08:49
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-20 10:24:14
+ * @LastEditTime: 2024-05-20 14:40:16
  * @FilePath: /figma-plugin-vue3-template/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -104,7 +104,7 @@
 <script lang="ts">
 import { ElCheckbox, ElSwitch } from 'element-plus'
 import { i18nOptions } from './constants/i18n'
-import { postMessageToUI, reservedDecimal } from './utils'
+import { postMessageToUI, replaceFirstMatch, replaceLastMatch, reservedDecimal } from './utils'
 import { MessageType } from './types'
 
 export default defineComponent({
@@ -115,9 +115,9 @@ export default defineComponent({
       emptyListData: [{
         name: '⚠️ Please select a layer at first',
       }] as Array<NewNodeType>,
-      i18nRegexp: new RegExp(`^${i18nOptions.map((item) => `${item.value}_`).join('|')}`),
-      sizeRegexp: /_?\d+(\.\d+)?x\d+(\.\d+)?/,
-      resolutionRegexp: /@\d+(\.\d+)?x$/,
+      i18nRegexp: new RegExp(`${i18nOptions.map((item) => `${item.value}_`).join('|')}`),
+      sizeRegexp: /_?\d+(\.\d+)?x\d+(\.\d+)?/g,
+      resolutionRegexp: /@\d+(\.\d+)?x/g,
       configure: {
         onI18n: true,
         onUseI18n: true,
@@ -172,20 +172,24 @@ export default defineComponent({
         if (data.configure.i18nValue && data.configure.onI18n) {
           if (data.configure.onUseI18n) {
             if (data.i18nRegexp.test(newName)) {
-              newName = newName.replace(data.i18nRegexp, `${data.configure.i18nValue}_`)
+              newName = replaceFirstMatch(newName, data.i18nRegexp, `${data.configure.i18nValue}_`)
             } else {
               newName = `${data.configure.i18nValue}_${newName}`
             }
           }
+        } else {
+          newName = replaceFirstMatch(newName, data.i18nRegexp, '')
         }
         // 是否有尺寸
         if (data.configure.onLayerSize) {
           const replaceStr = `_${formatListData.value?.[ind].width}x${formatListData.value?.[ind].height}`
           if (data.sizeRegexp.test(newName)) {
-            newName = newName.replace(data.sizeRegexp, replaceStr)
+            newName = replaceLastMatch(newName, data.sizeRegexp, replaceStr)
           } else {
             newName += replaceStr
           }
+        } else {
+          newName = replaceLastMatch(newName, data.sizeRegexp, '')
         }
         // 是否有尺寸约束
         if (data.configure.onLayerResolution) {
@@ -196,10 +200,12 @@ export default defineComponent({
             replaceStr = '@1x'
           }
           if (data.resolutionRegexp.test(newName)) {
-            newName = newName.replace(data.resolutionRegexp, replaceStr)
+            newName = replaceLastMatch(newName, data.resolutionRegexp, replaceStr)
           } else {
             newName += replaceStr
           }
+        } else {
+          newName = replaceLastMatch(newName, data.resolutionRegexp, '')
         }
         item.newName = newName
         return item
