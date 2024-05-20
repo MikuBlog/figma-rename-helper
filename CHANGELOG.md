@@ -1,3 +1,13 @@
+## [2.0.1](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.0.0...v2.0.1) (2024-05-20)
+
+
+### Bug Fixes
+
+* 监听配置 ([74fa878](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/74fa878dc6cd291d417ce5dc7d92ff687bed1930))
+* 修复列表渲染高度不一致问题 ([ff5c67d](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/ff5c67d1ec131733fb809e1629ac7cd315e6730c))
+
+
+
 # [2.0.0](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v1.0.0...v2.0.0) (2024-05-17)
 
 
