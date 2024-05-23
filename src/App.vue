@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-11 18:08:49
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-20 16:43:03
+ * @LastEditTime: 2024-05-22 11:22:21
  * @FilePath: /figma-plugin-vue3-template/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -47,6 +47,12 @@
               />
               <br>
               <ElCheckbox
+                v-model="configure.onDevice"
+                label="Show Device（Prefix）"
+                size="large"
+                text-color="#333"
+              />
+              <ElCheckbox
                 v-model="configure.onLayerSize"
                 label="Show Layer Size（Suffix）"
                 size="large"
@@ -64,7 +70,7 @@
             <div class="right flex-1">
               <div
                 v-show="configure.onI18n"
-                class="i18n-selector-box"
+                class="selector-box"
               >
                 <div class="flex justify-between">
                   <Title title="i18N Rules" />
@@ -78,6 +84,24 @@
                 <Selector
                   v-model:value="configure.i18nValue"
                   :options="i18nOptions"
+                />
+              </div>
+              <div
+                v-show="configure.onDevice"
+                class="selector-box"
+              >
+                <div class="flex justify-between">
+                  <Title title="Device" />
+                  <ElSwitch
+                    v-model="configure.onUseDevice"
+                    size="small"
+                    active-text="Apply new"
+                    inactive-text="Stay old"
+                  />
+                </div>
+                <Selector
+                  v-model:value="configure.deviceValue"
+                  :options="deviceOptions"
                 />
               </div>
             </div>
@@ -104,6 +128,7 @@
 <script lang="ts">
 import { ElCheckbox, ElSwitch } from 'element-plus'
 import { i18nOptions } from './constants/i18n'
+import { deviceOptions } from './constants/device'
 import { postMessageToUI, replaceFirstMatch, replaceLastMatch, reservedDecimal } from './utils'
 import { isMacOs } from './utils/platform'
 import { MessageType } from './types'
@@ -117,14 +142,18 @@ export default defineComponent({
         name: '⚠️ Please select a layer at first',
       }] as Array<NewNodeType>,
       i18nRegexp: new RegExp(`${i18nOptions.map((item) => `${item.value}_`).join('|')}`),
+      deviceRegexp: new RegExp(`${deviceOptions.map((item) => `${item.value}_`).join('|')}`),
       sizeRegexp: /_?\d+(\.\d+)?x\d+(\.\d+)?/g,
       resolutionRegexp: /@\d+(\.\d+)?x/g,
       configure: {
         onI18n: true,
+        onDevice: true,
         onUseI18n: true,
+        onUseDevice: true,
         onLayerSize: true,
         onLayerResolution: true,
         i18nValue: i18nOptions[0].value,
+        deviceValue: deviceOptions[0].value,
       },
     })
 
@@ -169,6 +198,18 @@ export default defineComponent({
           constraint = item.exportSettings[item.exportSettings.length - 1]?.constraint
         }
         let newName = item.name
+        // 是否有device
+        if (data.configure.deviceValue && data.configure.onDevice) {
+          if (data.configure.onUseDevice) {
+            if (data.i18nRegexp.test(newName)) {
+              newName = replaceFirstMatch(newName, data.deviceRegexp, `${data.configure.deviceValue}_`)
+            } else {
+              newName = `${data.configure.deviceValue}_${newName}`
+            }
+          }
+        } else {
+          newName = replaceFirstMatch(newName, data.deviceRegexp, '')
+        }
         // 是否有i18n
         if (data.configure.i18nValue && data.configure.onI18n) {
           if (data.configure.onUseI18n) {
@@ -246,6 +287,7 @@ export default defineComponent({
       handleClickButton,
       rightListData,
       i18nOptions,
+      deviceOptions,
       formatListData,
       isMacOs,
       ...toRefs(data),
@@ -253,3 +295,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="less" scoped>
+.selector-box:not(:last-of-type) {
+  margin-bottom: 20px;
+}
+</style>
