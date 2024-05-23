@@ -1,3 +1,17 @@
+# [2.1.0](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.0.3...v2.1.0) (2024-05-23)
+
+
+### Bug Fixes
+
+* 样式问题 ([ae1b416](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/ae1b41646438cd3d5ffbb57c0c04de3c5c01c049))
+
+
+### Features
+
+* 新增设备类型 ([5d0f0fb](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/5d0f0fbbd1d3d49a66619911604fd7c34e550d74))
+
+
+
 ## [2.0.3](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.0.2...v2.0.3) (2024-05-20)
 
 
