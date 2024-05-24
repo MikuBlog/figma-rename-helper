@@ -1,3 +1,14 @@
+## [2.1.1](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.1.0...v2.1.1) (2024-05-24)
+
+
+### Bug Fixes
+
+* 修复设备信息 ([a280ee9](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/a280ee98cdca2bf975f71dc97d26723c26855bf0))
+* overflow ([d57ee65](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/d57ee65f2cc6f1296cf09192b4506f113ebff2c3))
+* png ([0030711](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/003071119b964de93b1a46de2c7423c6b36b04ac))
+
+
+
 # [2.1.0](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.0.3...v2.1.0) (2024-05-23)
 
 
