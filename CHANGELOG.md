@@ -1,3 +1,12 @@
+# [2.2.0](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.1.1...v2.2.0) (2024-05-25)
+
+
+### Performance Improvements
+
+* 重命名逻辑更新 ([04c5ed8](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/04c5ed890b5dcd5f24db44183e756b50722a8d6e))
+
+
+
 ## [2.1.1](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.1.0...v2.1.1) (2024-05-24)
 
 
