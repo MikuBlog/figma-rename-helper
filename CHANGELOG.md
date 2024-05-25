@@ -1,3 +1,12 @@
+## [2.2.1](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.2.0...v2.2.1) (2024-05-25)
+
+
+### Bug Fixes
+
+* 样式 ([9e3f2d9](https://github.com/chinanf-boy/figma-plugin-vue3-template/commit/9e3f2d99d5c5e6f35994e6342d0470e81af58944))
+
+
+
 # [2.2.0](https://github.com/chinanf-boy/figma-plugin-vue3-template/compare/v2.1.1...v2.2.0) (2024-05-25)
 
 
