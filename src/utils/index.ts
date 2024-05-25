@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-14 15:10:40
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-20 16:28:33
+ * @LastEditTime: 2024-05-25 14:35:41
  * @FilePath: /figma-rename-helper/src/utils/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -67,6 +67,18 @@ export const replaceLastMatch = (inputStr: string, pattern: RegExp, replacement:
   }
 }
 
+// 找到最后一个匹配项
+export const findLastMatch = (inputStr: string, pattern: RegExp) => {
+  // 查找所有匹配的结果
+  const matches = inputStr.match(pattern)
+  if (matches) {
+    // 获取最后一个匹配的子字符串
+    const lastMatch = matches[matches.length - 1]
+    return lastMatch
+  }
+  return ''
+}
+
 // 匹配并替换第一个满足正则表达式的字符串
 export const replaceFirstMatch = (inputStr: string, pattern: RegExp, replacement: string) => {
   // 查找第一个匹配的结果
@@ -82,6 +94,15 @@ export const replaceFirstMatch = (inputStr: string, pattern: RegExp, replacement
   } else {
     return inputStr // 没有匹配的字符串，返回原始字符串
   }
+}
+
+// 找到第一个匹配项
+export const findFirstMatch = (inputStr: string, pattern: RegExp) => {
+  const match = inputStr.match(pattern)
+  if (match) {
+    return match[0]
+  }
+  return ''
 }
 
 // 等待dom渲染完毕

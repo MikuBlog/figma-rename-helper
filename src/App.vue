@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-11 18:08:49
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-24 18:34:44
+ * @LastEditTime: 2024-05-25 15:00:26
  * @FilePath: /figma-plugin-vue3-template/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -129,7 +129,7 @@
 import { ElCheckbox, ElSwitch } from 'element-plus'
 import { i18nOptions } from './constants/i18n'
 import { deviceOptions } from './constants/device'
-import { postMessageToUI, replaceFirstMatch, replaceLastMatch, reservedDecimal } from './utils'
+import { findFirstMatch, findLastMatch, postMessageToUI, replaceFirstMatch, replaceLastMatch, reservedDecimal } from './utils'
 import { isMacOs } from './utils/platform'
 import { MessageType } from './types'
 
@@ -191,6 +191,56 @@ export default defineComponent({
       deep: true,
     })
 
+    // 生成设备
+    const generateDevice = (name: string) => {
+      // 是否有device
+      if (data.configure.deviceValue && data.configure.onDevice) {
+        if (data.configure.onUseDevice) {
+          return `${data.configure.deviceValue}_`
+        } else {
+          return findFirstMatch(name, data.deviceRegexp)
+        }
+      }
+      return ''
+    }
+
+    // 生成i18n
+    const generateI18n = (name: string) => {
+      // 是否有i18n
+      if (data.configure.i18nValue && data.configure.onI18n) {
+        if (data.configure.onUseI18n) {
+          return `${data.configure.i18nValue}_`
+        } else {
+          return findFirstMatch(name, data.i18nRegexp)
+        }
+      }
+      return ''
+    }
+
+    // 生成尺寸
+    const generateSize = (name: string, ind: number) => {
+      // 是否有size
+      if (data.configure.onLayerSize) {
+        return `_${formatListData.value?.[ind].width}x${formatListData.value?.[ind].height}`
+      }
+      return ''
+    }
+
+    // 生成尺寸
+    const generateResolution = (name: string, constraint: any) => {
+      // 是否有尺寸约束
+      if (data.configure.onLayerResolution) {
+        let replaceStr = ''
+        if (constraint) {
+          replaceStr = `@${constraint.value}x`
+        } else {
+          replaceStr = '@1x'
+        }
+        return replaceStr
+      }
+      return ''
+    }
+
     const rightListData = computed(() => {
       return data.listData.map((item: NewNodeType, ind: number) => {
         let constraint
@@ -198,58 +248,17 @@ export default defineComponent({
           constraint = item.exportSettings[item.exportSettings.length - 1]?.constraint
         }
         let newName = item.name
-        // 是否有device
-        if (data.configure.deviceValue && data.configure.onDevice) {
-          if (data.configure.onUseDevice) {
-            if (data.deviceRegexp.test(newName)) {
-              newName = replaceFirstMatch(newName, data.deviceRegexp, `${data.configure.deviceValue}_`)
-            } else {
-              newName = `${data.configure.deviceValue}_${newName}`
-            }
-          }
-        } else {
-          newName = replaceFirstMatch(newName, data.deviceRegexp, '')
-        }
-        // 是否有i18n
-        if (data.configure.i18nValue && data.configure.onI18n) {
-          if (data.configure.onUseI18n) {
-            if (data.i18nRegexp.test(newName)) {
-              newName = replaceFirstMatch(newName, data.i18nRegexp, `${data.configure.i18nValue}_`)
-            } else {
-              newName = `${data.configure.i18nValue}_${newName}`
-            }
-          }
-        } else {
-          newName = replaceFirstMatch(newName, data.i18nRegexp, '')
-        }
-        // 是否有尺寸
-        if (data.configure.onLayerSize) {
-          const replaceStr = `_${formatListData.value?.[ind].width}x${formatListData.value?.[ind].height}`
-          if (data.sizeRegexp.test(newName)) {
-            newName = replaceLastMatch(newName, data.sizeRegexp, replaceStr)
-          } else {
-            newName += replaceStr
-          }
-        } else {
-          newName = replaceLastMatch(newName, data.sizeRegexp, '')
-        }
-        // 是否有尺寸约束
-        if (data.configure.onLayerResolution) {
-          let replaceStr = ''
-          if (constraint) {
-            replaceStr = `@${constraint.value}x`
-          } else {
-            replaceStr = '@1x'
-          }
-          if (data.resolutionRegexp.test(newName)) {
-            newName = replaceLastMatch(newName, data.resolutionRegexp, replaceStr)
-          } else {
-            newName += replaceStr
-          }
-        } else {
-          newName = replaceLastMatch(newName, data.resolutionRegexp, '')
-        }
-        item.newName = newName
+        newName = replaceFirstMatch(newName, data.deviceRegexp, '')
+        newName = replaceFirstMatch(newName, data.i18nRegexp, '')
+        newName = replaceLastMatch(newName, data.sizeRegexp, '')
+        newName = replaceLastMatch(newName, data.resolutionRegexp, '')
+        let prefix = ''
+        let suffix = ''
+        prefix += generateI18n(item.name)
+        prefix += generateDevice(item.name)
+        suffix += generateSize(item.name, ind)
+        suffix += generateResolution(item.name, constraint)
+        item.newName = `${prefix}${newName}${suffix}`
         return item
       })
     })
