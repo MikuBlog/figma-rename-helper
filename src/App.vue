@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-11 18:08:49
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-25 15:00:26
+ * @LastEditTime: 2024-05-25 15:04:01
  * @FilePath: /figma-plugin-vue3-template/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -70,7 +70,7 @@
             <div class="right flex-1">
               <div
                 v-show="configure.onI18n"
-                class="selector-box"
+                class="selector-box mb-20px"
               >
                 <div class="flex justify-between">
                   <Title title="i18N Rules" />
@@ -304,9 +304,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="less" scoped>
-.selector-box:not(:last-of-type) {
-  margin-bottom: 20px;
-}
-</style>
