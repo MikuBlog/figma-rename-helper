@@ -2,13 +2,13 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-11 18:08:49
  * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-23 11:25:27
+ * @LastEditTime: 2024-06-08 10:19:40
  * @FilePath: /figma-plugin-vue3-template/README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 # Figma-Rename-Helper
 
-![introduction](https://s3.bmp.ovh/imgs/2024/05/23/71c9d52a4fa2d124.png)
+![introduction](https://s3.bmp.ovh/imgs/2024/06/08/b4d8317fbaa319dd.png)
 
 ## Technology-Stack
 
