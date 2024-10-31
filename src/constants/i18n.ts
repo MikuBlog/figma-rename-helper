@@ -1,8 +1,8 @@
 /*
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-13 15:27:55
- * @LastEditors: 旋仔 zixuan.wen@shopcider.com
- * @LastEditTime: 2024-05-17 11:22:43
+ * @LastEditors: xuanzai xuanzai@bytedance.com
+ * @LastEditTime: 2024-10-31 22:12:01
  * @FilePath: /figma-rename-helper/src/constants/i18n.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -77,6 +77,16 @@ export const i18nOptions = [
     value: 'UK/UK',
     label: 'UK',
     imgPrefix: new URL('@/assets/Country-Flag/UK.png', import.meta.url).href,
+  },
+  {
+    value: 'CN/CN',
+    label: 'CN',
+    imgPrefix: new URL('@/assets/Country-Flag/CN.png', import.meta.url).href,
+  },
+  {
+    value: 'NL/NL',
+    label: 'NL',
+    imgPrefix: new URL('@/assets/Country-Flag/NL.png', import.meta.url).href,
   },
   {
     value: 'LATAM/LATAM',
