@@ -2,7 +2,7 @@
  * @Author: 旋仔 zixuan.wen@shopcider.com
  * @Date: 2024-05-13 15:27:55
  * @LastEditors: xuanzai xuanzai@bytedance.com
- * @LastEditTime: 2024-10-31 22:12:01
+ * @LastEditTime: 2025-02-24 22:02:18
  * @FilePath: /figma-rename-helper/src/constants/i18n.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -29,9 +29,9 @@ export const i18nOptions = [
     imgPrefix: new URL('@/assets/Country-Flag/BR.png', import.meta.url).href,
   },
   {
-    value: 'AR/AR',
-    label: 'AR',
-    imgPrefix: new URL('@/assets/Country-Flag/AR.png', import.meta.url).href,
+    value: 'AE/AE',
+    label: 'AE',
+    imgPrefix: new URL('@/assets/Country-Flag/AE.png', import.meta.url).href,
   },
   {
     value: 'AU/AU',
@@ -92,6 +92,11 @@ export const i18nOptions = [
     value: 'LATAM/LATAM',
     label: 'LATAM',
     imgPrefix: new URL('@/assets/Country-Flag/LATAM.png', import.meta.url).href,
+  },
+  {
+    value: 'SA/SA',
+    label: 'SA',
+    imgPrefix: new URL('@/assets/Country-Flag/SA.png', import.meta.url).href,
   },
 ].sort((a: any, b: any) => a.label.localeCompare(b.label))
 
